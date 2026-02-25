@@ -89,7 +89,7 @@ Mochi-Meadow/
 
 1. **Phase 1** – Sidebar + study timer + simple to-do list + points; garden locked until “done”.
 2. **Phase 2** – Garden view, one pet, simple shelter; feed/mist with points.
-3. **Phase 3** – Pet overlay popups, sad/happy states, “lock in” reminders.
+3. **Phase 3** – Pet overlay popups, sad/happy states, focus reminders.
 4. **Phase 4** – Focus/study detection (optional), polish, more items and pet growth.
 
 You’re in **Mochi Meadow** — study and finish tasks to unlock the garden and keep your mochi pets happy.

@@ -1,0 +1,63 @@
+.main-view {
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 1rem;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.main-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--pink);
+}
+
+.main-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.main-tabs button {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.main-tabs button.active {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.main-tabs button[data-locked="true"] {
+  opacity: 0.8;
+}
+
+.main-content {
+  min-height: 200px;
+}
+
+.points-display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.85rem;
+}
+
+.points-label {
+  color: var(--muted);
+}
+
+.points-value {
+  font-weight: 700;
+  color: var(--yellow);
+}

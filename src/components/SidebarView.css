@@ -1,0 +1,71 @@
+.sidebar-view {
+  width: 48px;
+  height: 100vh;
+  background: rgba(26, 27, 38, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  -webkit-app-region: drag;
+}
+
+.sidebar-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.sidebar-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sidebar-progress-wrap {
+  width: 12px;
+  height: 80px;
+  background: var(--surface);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.sidebar-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--muted);
+  border-radius: 6px;
+  transition: height 0.3s ease;
+}
+
+.sidebar-progress.study {
+  background: var(--accent);
+}
+
+.sidebar-progress.tasks {
+  background: var(--yellow);
+}
+
+.sidebar-pct {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.sidebar-done {
+  font-size: 18px;
+  color: var(--green);
+  margin-top: 8px;
+}

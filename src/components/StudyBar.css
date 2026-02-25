@@ -1,0 +1,100 @@
+.study-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.study-hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.study-goal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.study-goal label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.study-goal input {
+  width: 6rem;
+  padding: 0.5rem;
+  border: 1px solid var(--surface);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.study-timer {
+  padding: 1rem;
+  background: var(--surface);
+  border-radius: 12px;
+}
+
+.study-time {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.study-minutes {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.study-sep {
+  color: var(--muted);
+  margin: 0 0.25rem;
+}
+
+.study-session {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.study-toggle {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.study-toggle.studying {
+  background: var(--red);
+}
+
+.study-progress-wrap {
+  position: relative;
+  height: 24px;
+  background: var(--surface);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.study-progress-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--green);
+  border-radius: 12px;
+  transition: width 0.3s ease;
+}
+
+.study-progress-label {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--bg);
+  text-shadow: 0 0 2px var(--text);
+}
