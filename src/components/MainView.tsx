@@ -7,45 +7,47 @@ import { PointsDisplay } from './PointsDisplay';
 import './MainView.css';
 
 export function MainView() {
-  const [tab, setTab] = useState<'todo' | 'study' | 'garden'>('todo');
+  const [sidebarTab, setSidebarTab] = useState<'todo' | 'study'>('todo');
   const gardenUnlocked = useStore((s) => s.gardenUnlocked);
   const checkGardenAccess = useStore((s) => s.checkGardenAccess);
 
-  const openGarden = () => {
-    checkGardenAccess();
-    setTab('garden');
-  };
-
   return (
     <div className="main-view">
-      <header className="main-header">
-        <h1>Mochi Meadow</h1>
-        <PointsDisplay />
-      </header>
+      {/* Main area: cute garden first */}
+      <section className="main-garden-area">
+        <Garden locked={!gardenUnlocked} onUnlockHint={checkGardenAccess} />
+      </section>
 
-      <nav className="main-tabs">
-        <button className={tab === 'todo' ? 'active' : ''} onClick={() => setTab('todo')}>
-          To-do
-        </button>
-        <button className={tab === 'study' ? 'active' : ''} onClick={() => setTab('study')}>
-          Study
-        </button>
-        <button
-          className={tab === 'garden' ? 'active' : ''}
-          onClick={openGarden}
-          data-locked={!gardenUnlocked}
-        >
-          Garden {!gardenUnlocked && '🔒'}
-        </button>
-      </nav>
-
-      <main className="main-content">
-        {tab === 'todo' && <TodoList />}
-        {tab === 'study' && <StudyBar />}
-        {tab === 'garden' && (
-          <Garden locked={!gardenUnlocked} onUnlockHint={checkGardenAccess} />
+      {/* Sidebar: todo, study, points */}
+      <aside className="main-sidebar">
+        <div className="main-sidebar-header">
+          <h2 className="main-sidebar-title">Mochi Meadow</h2>
+          <PointsDisplay />
+        </div>
+        <nav className="main-sidebar-tabs">
+          <button
+            className={sidebarTab === 'todo' ? 'active' : ''}
+            onClick={() => setSidebarTab('todo')}
+          >
+            To-do
+          </button>
+          <button
+            className={sidebarTab === 'study' ? 'active' : ''}
+            onClick={() => setSidebarTab('study')}
+          >
+            Study
+          </button>
+        </nav>
+        <div className="main-sidebar-content">
+          {sidebarTab === 'todo' && <TodoList />}
+          {sidebarTab === 'study' && <StudyBar />}
+        </div>
+        {!gardenUnlocked && (
+          <p className="main-sidebar-hint">
+            Finish tasks or meet your study goal to unlock the garden 🌱
+          </p>
         )}
-      </main>
+      </aside>
     </div>
   );
 }

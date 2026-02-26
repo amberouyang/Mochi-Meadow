@@ -10,7 +10,7 @@ let overlayWindow;
 function createMainWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   mainWindow = new BrowserWindow({
-    width: Math.min(420, width * 0.4),
+    width: Math.min(900, width * 0.85),
     height: Math.min(640, height * 0.75),
     webPreferences: { nodeIntegration: false, contextIsolation: true },
     title: 'Mochi Meadow',

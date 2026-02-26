@@ -4,122 +4,347 @@
   padding: 1.5rem;
 }
 
+/* Cute meadow lock screen — full bleed */
 .garden-locked {
-  background: var(--surface);
+  position: relative;
+  background: linear-gradient(180deg, #87ceeb 0%, #b8e0d4 35%, #7cb87a 70%, #5a9a57 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
+.garden-meadow-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Kawaii sun with face */
+.garden-sun {
+  position: absolute;
+  top: 12%;
+  right: 18%;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fffef5, #ffec8b);
+  box-shadow: 0 0 50px rgba(255, 236, 139, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: garden-sun-glow 4s ease-in-out infinite;
+}
+
+.garden-sun-unlocked {
+  top: 10%;
+  right: 12%;
+  width: 56px;
+  height: 56px;
+}
+
+.garden-sun-face {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #c9a227;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.garden-sun-unlocked .garden-sun-face {
+  font-size: 1.1rem;
+}
+
+@keyframes garden-sun-glow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.95; }
+}
+
+.garden-cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: garden-cloud-float 8s ease-in-out infinite;
+}
+
+.garden-cloud-1 {
+  width: 80px;
+  height: 36px;
+  top: 18%;
+  left: 15%;
+  box-shadow: 32px 0 0 -8px rgba(255, 255, 255, 0.75);
+  animation-delay: 0s;
+}
+
+.garden-cloud-2 {
+  width: 56px;
+  height: 28px;
+  top: 28%;
+  right: 22%;
+  box-shadow: 24px 0 0 -6px rgba(255, 255, 255, 0.7);
+  animation-delay: -2s;
+}
+
+.garden-cloud-3 {
+  width: 48px;
+  height: 24px;
+  top: 22%;
+  left: 45%;
+  box-shadow: 20px 0 0 -5px rgba(255, 255, 255, 0.7);
+  animation-delay: -4s;
+}
+
+@keyframes garden-cloud-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.garden-grass {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 42%;
+  background: linear-gradient(180deg, transparent 0%, rgba(126, 184, 122, 0.35) 25%, rgba(90, 154, 87, 0.55) 100%);
+}
+
+/* Scattered cute flowers & sparkles */
+.garden-flower {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.9;
+  animation: garden-flower-bob 3s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.garden-flower-1 { bottom: 22%; left: 10%; animation-delay: 0s; }
+.garden-flower-2 { bottom: 28%; right: 15%; animation-delay: -0.5s; font-size: 1.25rem; }
+.garden-flower-3 { bottom: 18%; left: 25%; animation-delay: -1s; font-size: 1.1rem; }
+.garden-flower-4 { bottom: 35%; right: 8%; animation-delay: -1.5s; font-size: 1.3rem; }
+.garden-flower-5 { top: 25%; left: 20%; font-size: 1rem; animation: garden-sparkle 2s ease-in-out infinite; }
+
+@keyframes garden-flower-bob {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.05); }
+}
+
+@keyframes garden-sparkle {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Soft pastel lock message card */
 .garden-lock-message {
+  position: relative;
+  z-index: 1;
   text-align: center;
-  max-width: 280px;
+  max-width: 320px;
+  padding: 1.75rem 2rem;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 240, 0.95) 100%);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 0 0 2px rgba(255, 228, 225, 0.5);
+}
+
+.garden-lock-emojis {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.3em;
 }
 
 .garden-lock-title {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: var(--yellow);
+  color: #2d5a2d;
   margin: 0 0 0.5rem;
+  letter-spacing: 0.02em;
 }
 
 .garden-lock-text {
-  color: var(--muted);
+  color: #5a7a5a;
   font-size: 0.95rem;
-  margin: 0 0 1rem;
-  line-height: 1.4;
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
 }
 
-.garden-lock-message button {
-  padding: 0.6rem 1.2rem;
+.garden-lock-btn {
+  padding: 0.65rem 1.4rem;
   border: none;
-  border-radius: 10px;
-  background: var(--accent);
-  color: var(--bg);
+  border-radius: 999px;
+  background: linear-gradient(145deg, #ffb7c5 0%, #ff9ebb 100%);
+  color: #5c3d4a;
   font-weight: 600;
+  box-shadow: 0 4px 12px rgba(255, 158, 187, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.garden-lock-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(255, 158, 187, 0.5);
 }
 
 .garden-unlocked {
-  background: linear-gradient(180deg, #2d3a2d 0%, var(--surface) 100%);
+  position: relative;
+  background: linear-gradient(180deg, #87ceeb 0%, #b8e0d4 30%, #7cb87a 60%, #5a9a57 100%);
+  padding: 1.5rem;
 }
 
-.garden-shelter {
+.garden-unlocked .garden-shelter {
   position: relative;
+  z-index: 1;
   min-height: 200px;
 }
 
+/* Cutesy pastel shelter house with little window */
 .shelter-house {
   position: absolute;
-  right: 1rem;
+  right: 1.5rem;
   bottom: 2rem;
-  width: 80px;
-  height: 60px;
-  background: var(--muted);
-  border-radius: 8px;
-  opacity: 0.6;
+  width: 88px;
+  height: 72px;
+  background: linear-gradient(180deg, #ffd4e5 0%, #ffb8d4 50%, #ff9ec4 100%),
+    radial-gradient(circle at 70% 38%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 45%, transparent 70%);
+  background-size: 100% 100%, 22px 20px;
+  background-position: 0 0, 14px 16px;
+  background-repeat: no-repeat, no-repeat;
+  border-radius: 12px 12px 8px 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12), inset 0 2px 0 rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.6);
 }
 
+.shelter-house::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 44px solid transparent;
+  border-right: 44px solid transparent;
+  border-bottom: 24px solid #e8a0b8;
+}
+
+.shelter-house::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 32px;
+  background: #c97b8f;
+  border-radius: 4px 4px 0 0;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+
+/* Cute pet cards with blush */
 .garden-pets {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.25rem;
   margin-top: 1rem;
 }
 
 .pet {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 1rem;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  border-radius: 24px;
+  padding: 1.25rem;
   text-align: center;
-  min-width: 120px;
+  min-width: 130px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.pet:hover {
+  transform: translateY(-2px);
 }
 
 .pet-mochi {
-  width: 56px;
-  height: 56px;
+  position: relative;
+  width: 64px;
+  height: 64px;
   margin: 0 auto 0.5rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #e8c4c4 0%, #d4a5a5 100%);
-  box-shadow: inset -4px -4px 8px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(145deg, #ffe0e8 0%, #f5c6d0 40%, #e8b4be 100%);
+  box-shadow: inset -3px -3px 10px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(232, 180, 190, 0.4);
+}
+
+.pet-blush {
+  position: absolute;
+  bottom: 10px;
+  left: 8px;
+  width: 14px;
+  height: 7px;
+  background: rgba(255, 182, 193, 0.65);
+  border-radius: 50%;
+  transform: rotate(-12deg);
+}
+
+.pet-blush::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 36px;
+  width: 14px;
+  height: 7px;
+  background: rgba(255, 182, 193, 0.65);
+  border-radius: 50%;
+  transform: rotate(12deg);
 }
 
 .pet-sad .pet-mochi {
-  filter: saturate(0.7);
-  opacity: 0.9;
+  filter: saturate(0.85);
+  opacity: 0.92;
+}
+
+.pet-sad .pet-blush {
+  opacity: 0.4;
 }
 
 .pet-happy .pet-mochi {
-  box-shadow: 0 0 12px rgba(158, 206, 106, 0.4);
+  box-shadow: inset -3px -3px 10px rgba(0, 0, 0, 0.08), 0 0 20px rgba(158, 206, 106, 0.35);
 }
 
 .pet-name {
   display: block;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.5rem;
+  color: #4a3a3a;
+  font-size: 0.95rem;
 }
 
 .pet-energy {
-  height: 6px;
-  background: var(--surface);
-  border-radius: 3px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
   overflow: hidden;
   margin-bottom: 0.5rem;
 }
 
 .pet-energy-bar {
   height: 100%;
-  background: var(--green);
-  border-radius: 3px;
+  background: linear-gradient(90deg, #b5e7a0, #9ece6a);
+  border-radius: 999px;
   transition: width 0.3s ease;
 }
 
 .pet-feed {
   font-size: 0.8rem;
-  padding: 0.35rem 0.6rem;
+  padding: 0.4rem 0.75rem;
   border: none;
-  border-radius: 8px;
-  background: var(--green);
-  color: var(--bg);
+  border-radius: 999px;
+  background: linear-gradient(145deg, #b5e7a0 0%, #9ece6a 100%);
+  color: #2d4a2d;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(158, 206, 106, 0.35);
+  transition: transform 0.15s ease;
+}
+
+.pet-feed:hover:not(:disabled) {
+  transform: scale(1.05);
 }
 
 .pet-feed:disabled {
@@ -128,7 +353,11 @@
 }
 
 .garden-mist-hint {
+  position: relative;
+  z-index: 1;
   margin: 1rem 0 0;
   font-size: 0.85rem;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  text-align: center;
 }
