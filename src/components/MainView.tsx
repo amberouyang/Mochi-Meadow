@@ -70,7 +70,7 @@ export function MainView() {
       </header>
 
       <section className="main-garden-area">
-        <Garden locked={!gardenUnlocked} onUnlockHint={checkGardenAccess} />
+        <Garden locked={!gardenUnlocked && tutorialStage === 'done'} onUnlockHint={checkGardenAccess} />
       </section>
 
       {panel !== 'none' && (

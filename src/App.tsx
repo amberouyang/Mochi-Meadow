@@ -3,6 +3,7 @@ import { MainView } from './components/MainView';
 import { SidebarView } from './components/SidebarView';
 import { OverlayView } from './components/OverlayView';
 import { IntroScreen } from './components/IntroScreen';
+import { useStore } from './store/useStore';
 
 function getRoute() {
   const hash = window.location.hash.slice(1) || 'main';
@@ -14,7 +15,12 @@ function getRoute() {
 export default function App() {
   const route = useMemo(() => getRoute(), [window.location.hash]);
   const [showIntro, setShowIntro] = useState(true);
-  const onIntroComplete = useCallback(() => setShowIntro(false), []);
+  const unlockGarden = useStore((s) => s.unlockGarden);
+  const onIntroComplete = useCallback(() => {
+    setShowIntro(false);
+    // After the intro, go straight into the garden view (unlocked) for the tutorial.
+    unlockGarden();
+  }, [unlockGarden]);
 
   if (route === 'sidebar') return <SidebarView />;
   if (route === 'overlay') return <OverlayView />;

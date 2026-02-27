@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useStore } from '../store/useStore';
 import './Garden.css';
 
@@ -14,6 +14,10 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
   const debris = useStore((s) => s.debris);
   const clearDebris = useStore((s) => s.clearDebris);
   const awardIntroPointsIfNeeded = useStore((s) => s.awardIntroPointsIfNeeded);
+  const studyMinutesGoal = useStore((s) => s.studyMinutesGoal);
+  const studyMinutesToday = useStore((s) => s.studyMinutesToday);
+
+  const [showAccessDialog, setShowAccessDialog] = useState(false);
 
   useEffect(() => {
     if (tutorialStage === 'introMeadow') {
@@ -45,10 +49,41 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
           <p className="garden-lock-text">
             Finish your tasks or meet your study goal to unlock the garden and visit your mochi pets.
           </p>
-          <button className="garden-lock-btn" onClick={onUnlockHint}>
-            Check again 💕
+          <button className="garden-lock-btn" onClick={() => setShowAccessDialog(true)}>
+            See if the garden is open
           </button>
         </div>
+        {showAccessDialog && (
+          <div className="garden-access-overlay">
+            <div className="garden-access-card">
+              <p className="garden-access-title">Garden access</p>
+              <p className="garden-access-text">
+                Today&apos;s study goal: {studyMinutesGoal} minutes.
+                <br />
+                Studied so far: {studyMinutesToday} minutes.
+              </p>
+              <div className="garden-access-actions">
+                <button
+                  type="button"
+                  className="garden-access-btn garden-access-btn-secondary"
+                  onClick={() => setShowAccessDialog(false)}
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  className="garden-access-btn"
+                  onClick={() => {
+                    onUnlockHint();
+                    setShowAccessDialog(false);
+                  }}
+                >
+                  Proceed
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

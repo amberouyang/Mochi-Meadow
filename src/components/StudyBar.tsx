@@ -13,6 +13,7 @@ export function StudyBar() {
   const checkGardenAccess = useStore((s) => s.checkGardenAccess);
 
   const [secondsThisSession, setSecondsThisSession] = useState(0);
+  const [showGoalOverlay, setShowGoalOverlay] = useState(false);
 
   useEffect(() => {
     if (studyState !== 'studying') return;
@@ -20,18 +21,46 @@ export function StudyBar() {
       setSecondsThisSession((s) => {
         const next = s + 1;
         if (next >= 60) {
+          const updatedMinutes = studyMinutesToday + 1;
           addStudyMinute();
           addPoints(5);
           checkGardenAccess();
+          if (updatedMinutes >= studyMinutesGoal) {
+            setStudyState('idle');
+            setShowGoalOverlay(true);
+          }
           return 0;
         }
         return next;
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, [studyState, addStudyMinute, addPoints, checkGardenAccess]);
+  }, [
+    studyState,
+    studyMinutesToday,
+    studyMinutesGoal,
+    addStudyMinute,
+    addPoints,
+    checkGardenAccess,
+    setStudyState,
+  ]);
 
-  const progress = Math.min(100, (studyMinutesToday / studyMinutesGoal) * 100);
+  const totalSecondsGoal = studyMinutesGoal * 60;
+  const totalSeconds = studyMinutesToday * 60 + secondsThisSession;
+  const progress =
+    totalSecondsGoal > 0 ? Math.min(100, (totalSeconds / totalSecondsGoal) * 100) : 0;
+
+  const reachedGoal = studyMinutesToday >= studyMinutesGoal;
+  const hasProgress = studyMinutesToday > 0 || secondsThisSession > 0;
+
+  const buttonLabel =
+    studyState === 'studying'
+      ? 'Stop'
+      : reachedGoal
+      ? 'Goal reached'
+      : hasProgress
+      ? 'Resume'
+      : 'Start studying';
 
   return (
     <div className="study-bar">
@@ -55,19 +84,34 @@ export function StudyBar() {
           <span>{studyMinutesGoal} min</span>
         </div>
         <div className="study-session">
-          This session: {studyState === 'studying' ? `${secondsThisSession}s` : '—'}
+          This session:{' '}
+          {studyState === 'studying' ? `${secondsThisSession}s` : hasProgress ? `${secondsThisSession}s` : '—'}
         </div>
         <button
           className={`study-toggle ${studyState === 'studying' ? 'studying' : ''}`}
           onClick={() => setStudyState(studyState === 'studying' ? 'idle' : 'studying')}
+          disabled={reachedGoal && studyState !== 'studying'}
         >
-          {studyState === 'studying' ? 'Stop' : 'Start studying'}
+          {buttonLabel}
         </button>
       </div>
       <div className="study-progress-wrap">
         <div className="study-progress-bar" style={{ width: `${progress}%` }} />
         <span className="study-progress-label">{Math.round(progress)}%</span>
       </div>
+      {showGoalOverlay && (
+        <div className="study-overlay">
+          <div className="study-overlay-card">
+            <p className="study-overlay-title">Study goal reached!</p>
+            <p className="study-overlay-text">
+              Nice work — you&apos;ve finished today&apos;s study time. Your garden and pets are proud of you.
+            </p>
+            <button className="study-overlay-btn" onClick={() => setShowGoalOverlay(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
