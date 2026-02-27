@@ -194,6 +194,56 @@
   min-height: 200px;
 }
 
+/* Clickable debris for the initial clearing tutorial */
+.garden-debris {
+  position: absolute;
+  border: none;
+  background: transparent;
+  font-size: 1.7rem;
+  cursor: pointer;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+.garden-debris-rock {
+  bottom: 18%;
+  left: 18%;
+}
+
+.garden-debris-tree {
+  bottom: 22%;
+  right: 20%;
+}
+
+.garden-debris-rubble {
+  bottom: 14%;
+  left: 45%;
+}
+
+.garden-tutorial-card {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
+  max-width: 260px;
+  padding: 0.9rem 1rem;
+  background: rgba(36, 40, 59, 0.9);
+  border-radius: 14px;
+  color: var(--text);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.garden-tutorial-title {
+  margin: 0 0 0.25rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.garden-tutorial-text {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
 /* Cutesy pastel shelter house with little window */
 .shelter-house {
   position: absolute;

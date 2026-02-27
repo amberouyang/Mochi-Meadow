@@ -21,3 +21,11 @@ export type ShopItem = {
   cost: number;
   type: 'food' | 'mist' | 'shelter' | 'decoration';
 };
+
+export type TutorialStage = 'introMeadow' | 'clearDebris' | 'showSanctuaryArrow' | 'done';
+
+export type GardenDebris = {
+  id: string;
+  kind: 'rock' | 'tree' | 'rubble';
+  cleared: boolean;
+};

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useStore } from '../store/useStore';
 import './Garden.css';
 
@@ -8,6 +9,18 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
   const feedPet = useStore((s) => s.feedPet);
   const points = useStore((s) => s.points);
   const spendPoints = useStore((s) => s.spendPoints);
+
+  const tutorialStage = useStore((s) => s.tutorialStage);
+  const debris = useStore((s) => s.debris);
+  const clearDebris = useStore((s) => s.clearDebris);
+  const awardIntroPointsIfNeeded = useStore((s) => s.awardIntroPointsIfNeeded);
+
+  useEffect(() => {
+    if (tutorialStage === 'introMeadow') {
+      // For now, move straight into the clearing tutorial after the first intro visit.
+      useStore.setState({ tutorialStage: 'clearDebris' });
+    }
+  }, [tutorialStage]);
 
   if (locked) {
     return (
@@ -40,6 +53,8 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
     );
   }
 
+  const isClearingTutorial = tutorialStage === 'clearDebris';
+
   return (
     <div className="garden garden-unlocked">
       <div className="garden-meadow-bg" aria-hidden>
@@ -52,7 +67,37 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
         <div className="garden-flower garden-flower-1">🌸</div>
         <div className="garden-flower garden-flower-2">🌷</div>
         <div className="garden-flower garden-flower-3">🌼</div>
+
+        {isClearingTutorial &&
+          debris
+            .filter((d) => !d.cleared)
+            .map((d) => (
+              <button
+                key={d.id}
+                type="button"
+                className={`garden-debris garden-debris-${d.kind}`}
+                onClick={() => {
+                  clearDebris(d.id);
+                  awardIntroPointsIfNeeded();
+                }}
+              >
+                {d.kind === 'rock' && '🪨'}
+                {d.kind === 'tree' && '🌳'}
+                {d.kind === 'rubble' && '🧱'}
+              </button>
+            ))}
       </div>
+
+      {isClearingTutorial && (
+        <div className="garden-tutorial-card">
+          <p className="garden-tutorial-title">Your meadow is a little messy...</p>
+          <p className="garden-tutorial-text">
+            Tap the rocks, tree, and rubble to clear space for your future garden. You&apos;ll get
+            100 starter points once everything is cleaned up.
+          </p>
+        </div>
+      )}
+
       <div className="garden-shelter">
         <div className="shelter-house" />
         <div className="garden-pets">

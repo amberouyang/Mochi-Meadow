@@ -4,50 +4,82 @@ import { TodoList } from './TodoList';
 import { StudyBar } from './StudyBar';
 import { Garden } from './Garden';
 import { PointsDisplay } from './PointsDisplay';
+import { EggSanctuary } from './EggSanctuary';
 import './MainView.css';
 
+type Panel = 'none' | 'todo' | 'study' | 'sanctuary';
+
 export function MainView() {
-  const [sidebarTab, setSidebarTab] = useState<'todo' | 'study'>('todo');
+  const [panel, setPanel] = useState<Panel>('none');
   const gardenUnlocked = useStore((s) => s.gardenUnlocked);
   const checkGardenAccess = useStore((s) => s.checkGardenAccess);
+  const tutorialStage = useStore((s) => s.tutorialStage);
+
+  const openPanel = (next: Panel) => {
+    setPanel((current) => (current === next ? 'none' : next));
+  };
+
+  const showSanctuaryArrow = tutorialStage === 'showSanctuaryArrow';
 
   return (
     <div className="main-view">
-      {/* Main area: cute garden first */}
+      <header className="main-topbar">
+        <div className="main-topbar-left">
+          <h1 className="main-title">Mochi Meadow</h1>
+        </div>
+        <div className="main-topbar-right">
+          <PointsDisplay />
+          <div className="main-icon-menu" aria-label="Main menu">
+            <button
+              className={`main-icon-btn ${panel === 'todo' ? 'active' : ''}`}
+              onClick={() => openPanel('todo')}
+              aria-label="Open to-do list"
+            >
+              📝
+            </button>
+            <button
+              className={`main-icon-btn ${panel === 'study' ? 'active' : ''}`}
+              onClick={() => openPanel('study')}
+              aria-label="Open study timer"
+            >
+              ⏱
+            </button>
+            <div className="main-icon-wrapper">
+              <button
+                className={`main-icon-btn ${panel === 'sanctuary' ? 'active' : ''}`}
+                onClick={() => openPanel('sanctuary')}
+                aria-label="Open pet egg sanctuary"
+              >
+                🥚
+              </button>
+              {showSanctuaryArrow && (
+                <div className="main-icon-arrow" aria-hidden>
+                  <span className="main-icon-arrow-label">Tap here to visit the egg sanctuary</span>
+                </div>
+              )}
+            </div>
+            <button
+              className="main-icon-btn"
+              onClick={() => openPanel('none')}
+              aria-label="Settings (coming soon)"
+            >
+              ⚙️
+            </button>
+          </div>
+        </div>
+      </header>
+
       <section className="main-garden-area">
         <Garden locked={!gardenUnlocked} onUnlockHint={checkGardenAccess} />
       </section>
 
-      {/* Sidebar: todo, study, points */}
-      <aside className="main-sidebar">
-        <div className="main-sidebar-header">
-          <h2 className="main-sidebar-title">Mochi Meadow</h2>
-          <PointsDisplay />
+      {panel !== 'none' && (
+        <div className="main-panel">
+          {panel === 'todo' && <TodoList />}
+          {panel === 'study' && <StudyBar />}
+          {panel === 'sanctuary' && <EggSanctuary />}
         </div>
-        <nav className="main-sidebar-tabs">
-          <button
-            className={sidebarTab === 'todo' ? 'active' : ''}
-            onClick={() => setSidebarTab('todo')}
-          >
-            To-do
-          </button>
-          <button
-            className={sidebarTab === 'study' ? 'active' : ''}
-            onClick={() => setSidebarTab('study')}
-          >
-            Study
-          </button>
-        </nav>
-        <div className="main-sidebar-content">
-          {sidebarTab === 'todo' && <TodoList />}
-          {sidebarTab === 'study' && <StudyBar />}
-        </div>
-        {!gardenUnlocked && (
-          <p className="main-sidebar-hint">
-            Finish tasks or meet your study goal to unlock the garden 🌱
-          </p>
-        )}
-      </aside>
+      )}
     </div>
   );
 }

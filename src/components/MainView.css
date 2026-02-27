@@ -1,7 +1,98 @@
 .main-view {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   background: var(--bg);
+}
+
+/* Top bar with controls */
+.main-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  gap: 0.75rem;
+}
+
+.main-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.main-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--pink);
+}
+
+.main-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.main-icon-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.main-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background: var(--surface);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.main-icon-btn.active {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.main-icon-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.main-icon-arrow {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  pointer-events: none;
+}
+
+.main-icon-arrow::before {
+  content: '➜';
+  font-size: 1rem;
+  color: var(--yellow);
+  animation: main-arrow-bounce 1.1s ease-in-out infinite;
+}
+
+.main-icon-arrow-label {
+  font-size: 0.7rem;
+  color: var(--yellow);
+  white-space: nowrap;
+}
+
+@keyframes main-arrow-bounce {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
 }
 
 /* Garden fills the main area — first thing you see */
@@ -21,74 +112,6 @@
   flex-direction: column;
 }
 
-/* Sidebar: todo, study, points */
-.main-sidebar {
-  width: 300px;
-  min-width: 280px;
-  max-width: 360px;
-  background: rgba(36, 40, 59, 0.95);
-  backdrop-filter: blur(10px);
-  border-left: 1px solid rgba(255, 255, 255, 0.06);
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  overflow: auto;
-}
-
-.main-sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  flex-shrink: 0;
-}
-
-.main-sidebar-title {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--pink);
-}
-
-.main-sidebar-tabs {
-  display: flex;
-  gap: 0.35rem;
-  margin-bottom: 1rem;
-  flex-shrink: 0;
-}
-
-.main-sidebar-tabs button {
-  flex: 1;
-  padding: 0.5rem 0.75rem;
-  border: none;
-  border-radius: 10px;
-  background: var(--surface);
-  color: var(--text);
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-.main-sidebar-tabs button.active {
-  background: var(--accent);
-  color: var(--bg);
-}
-
-.main-sidebar-content {
-  flex: 1;
-  min-height: 0;
-  overflow: auto;
-}
-
-.main-sidebar-hint {
-  margin: 1rem 0 0;
-  padding: 0.75rem;
-  font-size: 0.8rem;
-  color: var(--muted);
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 10px;
-  flex-shrink: 0;
-}
-
 .points-display {
   display: flex;
   flex-direction: column;
@@ -103,4 +126,20 @@
 .points-value {
   font-weight: 700;
   color: var(--yellow);
+}
+
+/* Floating panel for menu functions */
+.main-panel {
+  position: fixed;
+  top: 3.5rem;
+  right: 1rem;
+  width: 280px;
+  max-height: calc(100vh - 5rem);
+  background: rgba(36, 40, 59, 0.97);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  overflow: auto;
+  z-index: 20;
 }

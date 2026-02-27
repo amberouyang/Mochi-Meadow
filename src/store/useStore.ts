@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Task, Pet } from '../types';
+import type { Task, Pet, TutorialStage, GardenDebris } from '../types';
 
 type StudyState = 'idle' | 'studying';
 
@@ -34,6 +34,18 @@ type Store = {
   unlockGarden: () => void;
   lockGarden: () => void;
   checkGardenAccess: () => void;
+
+  // Onboarding / tutorial
+  tutorialStage: TutorialStage;
+  introStartedAt: number;
+  debris: GardenDebris[];
+  clearDebris: (id: string) => void;
+  awardIntroPointsIfNeeded: () => void;
+
+  // Egg sanctuary / hatching
+  eggProgress: number;
+  eggHatched: boolean;
+  incrementEggProgress: (delta: number) => void;
 };
 
 export const useStore = create<Store>((set, get) => ({
@@ -42,7 +54,17 @@ export const useStore = create<Store>((set, get) => ({
   studyState: 'idle',
   setStudyMinutesGoal: (n) => set({ studyMinutesGoal: Math.max(0, n) }),
   setStudyMinutesToday: (n) => set({ studyMinutesToday: Math.max(0, n) }),
-  addStudyMinute: () => set((s) => ({ studyMinutesToday: s.studyMinutesToday + 1 })),
+  addStudyMinute: () =>
+    set((s) => {
+      const nextMinutes = s.studyMinutesToday + 1;
+      const nextEggProgress = Math.min(1000, s.eggProgress + 5);
+      const eggHatched = s.eggHatched || nextEggProgress >= 1000;
+      return {
+        studyMinutesToday: nextMinutes,
+        eggProgress: nextEggProgress,
+        eggHatched,
+      };
+    }),
   setStudyState: (s) => set({ studyState: s }),
 
   tasks: [
@@ -60,7 +82,13 @@ export const useStore = create<Store>((set, get) => ({
   removeTask: (id) => set((s) => ({ tasks: s.tasks.filter((t) => t.id !== id) })),
 
   points: 0,
-  addPoints: (n) => set((s) => ({ points: s.points + n })),
+  addPoints: (n) =>
+    set((s) => {
+      const nextPoints = s.points + n;
+      const nextEggProgress = Math.min(1000, s.eggProgress + n);
+      const eggHatched = s.eggHatched || nextEggProgress >= 1000;
+      return { points: nextPoints, eggProgress: nextEggProgress, eggHatched };
+    }),
   spendPoints: (n) => {
     const { points } = get();
     if (points < n) return false;
@@ -87,4 +115,40 @@ export const useStore = create<Store>((set, get) => ({
     const studyDone = studyMinutesToday >= studyMinutesGoal;
     set({ gardenUnlocked: allDone || studyDone });
   },
+
+  // Onboarding / tutorial
+  tutorialStage: 'introMeadow',
+  introStartedAt: Date.now(),
+  debris: [
+    { id: 'd1', kind: 'rock', cleared: false },
+    { id: 'd2', kind: 'tree', cleared: false },
+    { id: 'd3', kind: 'rubble', cleared: false },
+  ],
+  clearDebris: (id) =>
+    set((s) => ({
+      debris: s.debris.map((d) => (d.id === id ? { ...d, cleared: true } : d)),
+    })),
+  awardIntroPointsIfNeeded: () => {
+    const { points, debris, tutorialStage } = get();
+    const allCleared = debris.every((d) => d.cleared);
+    if (!allCleared || tutorialStage !== 'clearDebris') return;
+    if (points >= 100) {
+      set({ tutorialStage: 'showSanctuaryArrow' });
+      return;
+    }
+    set((s) => ({
+      points: s.points + 100,
+      tutorialStage: 'showSanctuaryArrow',
+    }));
+  },
+
+  // Egg sanctuary / hatching
+  eggProgress: 0,
+  eggHatched: false,
+  incrementEggProgress: (delta) =>
+    set((s) => {
+      const next = Math.min(1000, s.eggProgress + delta);
+      const eggHatched = s.eggHatched || next >= 1000;
+      return { eggProgress: next, eggHatched };
+    }),
 }));
