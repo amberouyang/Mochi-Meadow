@@ -29,3 +29,11 @@ export type GardenDebris = {
   kind: 'rock' | 'tree' | 'rubble';
   cleared: boolean;
 };
+
+export type StorePurchase = {
+  id: string;
+  name: string;
+  cost: number;
+  description: string;
+  type: 'egg';
+};

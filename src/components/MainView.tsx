@@ -5,9 +5,10 @@ import { StudyBar } from './StudyBar';
 import { Garden } from './Garden';
 import { PointsDisplay } from './PointsDisplay';
 import { EggSanctuary } from './EggSanctuary';
+import { StorePanel } from './StorePanel';
 import './MainView.css';
 
-type Panel = 'none' | 'todo' | 'study' | 'sanctuary';
+type Panel = 'none' | 'todo' | 'study' | 'sanctuary' | 'store';
 
 export function MainView() {
   const [panel, setPanel] = useState<Panel>('none');
@@ -59,6 +60,13 @@ export function MainView() {
               )}
             </div>
             <button
+              className={`main-icon-btn ${panel === 'store' ? 'active' : ''}`}
+              onClick={() => openPanel('store')}
+              aria-label="Open store"
+            >
+              🛒
+            </button>
+            <button
               className="main-icon-btn"
               onClick={() => openPanel('none')}
               aria-label="Settings (coming soon)"
@@ -78,6 +86,7 @@ export function MainView() {
           {panel === 'todo' && <TodoList />}
           {panel === 'study' && <StudyBar />}
           {panel === 'sanctuary' && <EggSanctuary />}
+          {panel === 'store' && <StorePanel />}
         </div>
       )}
     </div>

@@ -1,0 +1,87 @@
+.store-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.store-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--pink);
+}
+
+.store-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.store-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.store-egg {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(36, 40, 59, 0.9);
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+}
+
+.store-egg.active {
+  border-color: var(--pink);
+  background: rgba(62, 51, 80, 0.95);
+}
+
+.store-egg-icon {
+  font-size: 1.5rem;
+}
+
+.store-egg-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-size: 0.8rem;
+}
+
+.store-egg-name {
+  font-weight: 600;
+}
+
+.store-egg-desc {
+  color: var(--muted);
+}
+
+.store-egg-cost {
+  color: var(--yellow);
+}
+
+.store-adopt-btn {
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.store-points {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.store-message {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--green);
+}
+

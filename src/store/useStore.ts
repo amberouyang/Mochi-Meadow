@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Task, Pet, TutorialStage, GardenDebris } from '../types';
+import type { Task, Pet, TutorialStage, GardenDebris, StorePurchase } from '../types';
 
 type StudyState = 'idle' | 'studying';
 
@@ -28,6 +28,7 @@ type Store = {
   pets: Pet[];
   setPetMood: (id: string, mood: Pet['mood']) => void;
   feedPet: (id: string) => void;
+  setPetName: (id: string, name: string) => void;
 
   // Garden
   gardenUnlocked: boolean;
@@ -46,6 +47,10 @@ type Store = {
   eggProgress: number;
   eggHatched: boolean;
   incrementEggProgress: (delta: number) => void;
+
+  // Store
+  storeEggOptions: StorePurchase[];
+  lastEggChoiceName?: string;
 };
 
 export const useStore = create<Store>((set, get) => ({
@@ -105,6 +110,11 @@ export const useStore = create<Store>((set, get) => ({
     set((s) => ({
       pets: s.pets.map((p) => (p.id === id ? { ...p, energy: Math.min(100, p.energy + 20) } : p)),
     })),
+  setPetName: (id, name) =>
+    set((s) => ({
+      pets: s.pets.map((p) => (p.id === id ? { ...p, name } : p)),
+      lastEggChoiceName: name,
+    })),
 
   gardenUnlocked: false,
   unlockGarden: () => set({ gardenUnlocked: true }),
@@ -151,4 +161,12 @@ export const useStore = create<Store>((set, get) => ({
       const eggHatched = s.eggHatched || next >= 1000;
       return { eggProgress: next, eggHatched };
     }),
+
+  // Store
+  storeEggOptions: [
+    { id: 'egg1', name: 'Sakura Mochi', cost: 50, description: 'A soft pink mochi who loves spring.', type: 'egg' },
+    { id: 'egg2', name: 'Matcha Mochi', cost: 50, description: 'A calm green mochi who loves tea.', type: 'egg' },
+    { id: 'egg3', name: 'Yuzu Mochi', cost: 50, description: 'A bright citrus mochi full of energy.', type: 'egg' },
+  ],
+  lastEggChoiceName: undefined,
 }));

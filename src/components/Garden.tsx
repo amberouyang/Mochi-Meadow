@@ -89,6 +89,14 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
   }
 
   const isClearingTutorial = tutorialStage === 'clearDebris';
+  const [hideTutorialCard, setHideTutorialCard] = useState(false);
+
+  useEffect(() => {
+    // Reset hidden state if we ever leave and re-enter this stage
+    if (!isClearingTutorial) {
+      setHideTutorialCard(false);
+    }
+  }, [isClearingTutorial]);
 
   return (
     <div className="garden garden-unlocked">
@@ -123,8 +131,16 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
             ))}
       </div>
 
-      {isClearingTutorial && (
+      {isClearingTutorial && !hideTutorialCard && (
         <div className="garden-tutorial-card">
+          <button
+            type="button"
+            className="garden-tutorial-close"
+            onClick={() => setHideTutorialCard(true)}
+            aria-label="Close tutorial"
+          >
+            ×
+          </button>
           <p className="garden-tutorial-title">Your meadow is a little messy...</p>
           <p className="garden-tutorial-text">
             Tap the rocks, tree, and rubble to clear space for your future garden. You&apos;ll get

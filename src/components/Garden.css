@@ -233,6 +233,17 @@
   z-index: 2;
 }
 
+.garden-tutorial-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 .garden-tutorial-title {
   margin: 0 0 0.25rem;
   font-size: 0.95rem;
