@@ -50,6 +50,10 @@ export function StudyBar() {
   const progress =
     totalSecondsGoal > 0 ? Math.min(100, (totalSeconds / totalSecondsGoal) * 100) : 0;
 
+  const remainingSeconds = Math.max(0, totalSecondsGoal - totalSeconds);
+  const remainingMinutesPart = Math.floor(remainingSeconds / 60);
+  const remainingSecondsPart = remainingSeconds % 60;
+
   const reachedGoal = studyMinutesToday >= studyMinutesGoal;
   const hasProgress = studyMinutesToday > 0 || secondsThisSession > 0;
 
@@ -79,9 +83,10 @@ export function StudyBar() {
       </div>
       <div className="study-timer">
         <div className="study-time">
-          <span className="study-minutes">{studyMinutesToday}</span>
-          <span className="study-sep">/</span>
-          <span>{studyMinutesGoal} min</span>
+          <span className="study-minutes">
+            {remainingMinutesPart}:{remainingSecondsPart.toString().padStart(2, '0')}
+          </span>
+          <span className="study-sep"> left</span>
         </div>
         <div className="study-session">
           This session:{' '}
