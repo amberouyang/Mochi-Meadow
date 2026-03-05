@@ -105,7 +105,14 @@ export function StudyBar() {
         <span className="study-progress-label">{Math.round(progress)}%</span>
       </div>
       {showGoalOverlay && (
-        <div className="study-overlay">
+        <div
+          className="study-overlay"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowGoalOverlay(false);
+            }
+          }}
+        >
           <div className="study-overlay-card">
             <p className="study-overlay-title">Study goal reached!</p>
             <p className="study-overlay-text">
