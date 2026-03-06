@@ -15,17 +15,17 @@
   pointer-events: none;
 }
 
-/* Soft pastel gradient — cutesy anime vibe */
+/* Richer pastel gradient — cutesy anime vibe */
 .intro-bg {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    165deg,
-    #ffeff5 0%,
-    #ffe8f0 20%,
-    #ffdde8 40%,
-    #e8f4ff 70%,
-    #f0e8ff 100%
+    145deg,
+    #ffbfd5 0%,
+    #ff9ec4 25%,
+    #c8a5ff 55%,
+    #8fb5ff 80%,
+    #6a8bff 100%
   );
 }
 
@@ -51,8 +51,19 @@
   font-family: 'Comfortaa', 'M PLUS Rounded 1c', var(--font);
   font-size: 1.1rem;
   color: #9b7a9d;
-  margin: 0;
+  margin: 0 0 1.25rem;
   font-weight: 500;
+}
+
+.intro-collect-btn {
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  background: #ffe28b;
+  color: #5b4b2a;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .intro-sparkle {

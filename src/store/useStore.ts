@@ -51,6 +51,8 @@ type Store = {
   // Store
   storeEggOptions: StorePurchase[];
   lastEggChoiceName?: string;
+  welcomeBonusClaimed: boolean;
+  claimWelcomeBonus: () => void;
 };
 
 export const useStore = create<Store>((set, get) => ({
@@ -169,4 +171,13 @@ export const useStore = create<Store>((set, get) => ({
     { id: 'egg3', name: 'Yuzu Mochi', cost: 50, description: 'A bright citrus mochi full of energy.', type: 'egg' },
   ],
   lastEggChoiceName: undefined,
+  welcomeBonusClaimed: false,
+  claimWelcomeBonus: () => {
+    const { welcomeBonusClaimed } = get();
+    if (welcomeBonusClaimed) return;
+    set((s) => ({
+      points: s.points + 50,
+      welcomeBonusClaimed: true,
+    }));
+  },
 }));

@@ -27,11 +27,8 @@ export function IntroScreen({
     <div className={`intro-screen ${fading ? 'intro-screen--fade' : ''}`} aria-hidden={fading}>
       <div className="intro-bg" />
       <div className="intro-content">
-        <span className="intro-sparkle intro-sparkle-1">✨</span>
-        <span className="intro-sparkle intro-sparkle-2">🌸</span>
-        <h1 className="intro-title">Welcome to Mochi Meadow!</h1>
+        <h1 className="intro-title">Welcome to your Mochi Meadow!</h1>
         <p className="intro-sub">Study hard, grow your pets ~</p>
-        <span className="intro-sparkle intro-sparkle-3">✨</span>
       </div>
     </div>
   );
