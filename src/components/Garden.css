@@ -203,6 +203,7 @@
   font-size: 1.7rem;
   cursor: pointer;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  pointer-events: auto;
 }
 
 .garden-debris-rock {
