@@ -21,6 +21,7 @@ export default function App() {
   const unlockGarden = useStore((s) => s.unlockGarden);
   const claimWelcomeBonus = useStore((s) => s.claimWelcomeBonus);
   const setPlayerName = useStore((s) => s.setPlayerName);
+  const playerName = useStore((s) => s.playerName);
 
   const onIntroComplete = useCallback(() => {
     setShowIntro(false);
@@ -75,7 +76,9 @@ export default function App() {
       {showBonusPopup && (
         <div className="bonus-popup-overlay">
           <div className="bonus-popup">
-            <p className="bonus-popup-text">Here is 50 points to get you started!</p>
+            <p className="bonus-popup-text">
+              Welcome {playerName || 'friend'}! Here is 50 points to get you started!
+            </p>
             <button type="button" className="bonus-popup-btn" onClick={onCollectBonus}>
               Collect
             </button>
