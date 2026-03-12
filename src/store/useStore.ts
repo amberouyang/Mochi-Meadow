@@ -53,6 +53,10 @@ type Store = {
   lastEggChoiceName?: string;
   welcomeBonusClaimed: boolean;
   claimWelcomeBonus: () => void;
+
+  // Player
+  playerName: string;
+  setPlayerName: (name: string) => void;
 };
 
 export const useStore = create<Store>((set, get) => ({
@@ -180,4 +184,8 @@ export const useStore = create<Store>((set, get) => ({
       welcomeBonusClaimed: true,
     }));
   },
+
+  // Player
+  playerName: '',
+  setPlayerName: (name) => set({ playerName: name.trim().slice(0, 24) }),
 }));

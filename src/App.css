@@ -32,3 +32,22 @@
   font-weight: 700;
   font-size: 0.95rem;
 }
+
+.bonus-popup-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.name-popup-input {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  margin: 0 0 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.15);
+  color: var(--text);
+}
+
+.name-popup-input::placeholder {
+  color: rgba(192, 202, 245, 0.65);
+}

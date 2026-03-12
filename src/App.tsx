@@ -16,15 +16,26 @@ function getRoute() {
 export default function App() {
   const route = useMemo(() => getRoute(), [window.location.hash]);
   const [showIntro, setShowIntro] = useState(true);
+  const [showNamePopup, setShowNamePopup] = useState(false);
   const [showBonusPopup, setShowBonusPopup] = useState(false);
   const unlockGarden = useStore((s) => s.unlockGarden);
   const claimWelcomeBonus = useStore((s) => s.claimWelcomeBonus);
+  const setPlayerName = useStore((s) => s.setPlayerName);
 
   const onIntroComplete = useCallback(() => {
     setShowIntro(false);
     unlockGarden();
-    setShowBonusPopup(true);
+    setShowNamePopup(true);
   }, [unlockGarden]);
+
+  const [pendingName, setPendingName] = useState('');
+  const onConfirmName = useCallback(() => {
+    const name = pendingName.trim();
+    if (!name) return;
+    setPlayerName(name);
+    setShowNamePopup(false);
+    setShowBonusPopup(true);
+  }, [pendingName, setPlayerName]);
 
   const onCollectBonus = useCallback(() => {
     claimWelcomeBonus();
@@ -38,6 +49,29 @@ export default function App() {
     <>
       <MainView />
       {showIntro && <IntroScreen onComplete={onIntroComplete} />}
+      {showNamePopup && (
+        <div className="bonus-popup-overlay">
+          <div className="bonus-popup">
+            <p className="bonus-popup-text">What’s your name?</p>
+            <input
+              className="name-popup-input"
+              value={pendingName}
+              onChange={(e) => setPendingName(e.target.value)}
+              placeholder="Enter your name"
+              autoFocus
+              onKeyDown={(e) => e.key === 'Enter' && onConfirmName()}
+            />
+            <button
+              type="button"
+              className="bonus-popup-btn"
+              onClick={onConfirmName}
+              disabled={!pendingName.trim()}
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      )}
       {showBonusPopup && (
         <div className="bonus-popup-overlay">
           <div className="bonus-popup">
