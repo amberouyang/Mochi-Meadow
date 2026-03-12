@@ -42,6 +42,7 @@ type Store = {
   debris: GardenDebris[];
   clearDebris: (id: string) => void;
   awardIntroPointsIfNeeded: () => void;
+  setTutorialStage: (stage: TutorialStage) => void;
 
   // Egg sanctuary / hatching
   eggProgress: number;
@@ -157,6 +158,7 @@ export const useStore = create<Store>((set, get) => ({
       tutorialStage: 'showSanctuaryArrow',
     }));
   },
+  setTutorialStage: (stage) => set({ tutorialStage: stage }),
 
   // Egg sanctuary / hatching
   eggProgress: 0,

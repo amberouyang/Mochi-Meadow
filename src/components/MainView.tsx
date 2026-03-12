@@ -15,8 +15,12 @@ export function MainView() {
   const gardenUnlocked = useStore((s) => s.gardenUnlocked);
   const checkGardenAccess = useStore((s) => s.checkGardenAccess);
   const tutorialStage = useStore((s) => s.tutorialStage);
+  const setTutorialStage = useStore((s) => s.setTutorialStage);
 
   const openPanel = (next: Panel) => {
+    if (next === 'sanctuary' && tutorialStage === 'showSanctuaryArrow') {
+      setTutorialStage('done');
+    }
     setPanel((current) => (current === next ? 'none' : next));
   };
 
@@ -53,6 +57,12 @@ export function MainView() {
               >
                 🥚
               </button>
+              {showSanctuaryArrow && (
+                <div className="egg-hint" aria-hidden>
+                  <span className="egg-hint-arrow">⬆︎</span>
+                  <span className="egg-hint-text">Tap to visit the egg sanctuary</span>
+                </div>
+              )}
             </div>
             <button
               className={`main-icon-btn ${panel === 'store' ? 'active' : ''}`}
@@ -71,13 +81,6 @@ export function MainView() {
           </div>
         </div>
       </header>
-
-      {showSanctuaryArrow && (
-        <div className="main-underbar-hint" aria-hidden>
-          <span className="main-underbar-hint-arrow">⬆︎</span>
-          <span className="main-underbar-hint-text">Tap 🥚 to visit the egg sanctuary</span>
-        </div>
-      )}
 
       <section className="main-garden-area">
         <Garden locked={!gardenUnlocked && tutorialStage === 'done'} onUnlockHint={checkGardenAccess} />
