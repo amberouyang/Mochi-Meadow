@@ -206,6 +206,29 @@
   pointer-events: auto;
 }
 
+.garden-debris-arrow {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  animation: garden-debris-bounce 1s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes garden-debris-bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-4px);
+    opacity: 1;
+  }
+}
+
 .garden-debris-rock {
   bottom: 18%;
   left: 18%;
@@ -221,17 +244,25 @@
   left: 45%;
 }
 
-.garden-tutorial-card {
+.garden-tutorial-overlay {
   position: absolute;
-  left: 1.5rem;
-  top: 1.5rem;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.garden-tutorial-card {
+  position: relative;
   max-width: 260px;
   padding: 0.9rem 1rem;
   background: rgba(36, 40, 59, 0.9);
   border-radius: 14px;
   color: var(--text);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  z-index: 2;
+  pointer-events: auto;
 }
 
 .garden-tutorial-close {

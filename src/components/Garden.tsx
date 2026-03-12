@@ -16,15 +16,18 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
   const awardIntroPointsIfNeeded = useStore((s) => s.awardIntroPointsIfNeeded);
   const studyMinutesGoal = useStore((s) => s.studyMinutesGoal);
   const studyMinutesToday = useStore((s) => s.studyMinutesToday);
+  const welcomeBonusClaimed = useStore((s) => s.welcomeBonusClaimed);
 
   const [showAccessDialog, setShowAccessDialog] = useState(false);
 
   useEffect(() => {
     if (tutorialStage === 'introMeadow') {
-      // For now, move straight into the clearing tutorial after the first intro visit.
-      useStore.setState({ tutorialStage: 'clearDebris' });
+      // Only start the tutorial after the user collects their first 50 points.
+      if (welcomeBonusClaimed) {
+        useStore.setState({ tutorialStage: 'clearDebris' });
+      }
     }
-  }, [tutorialStage]);
+  }, [tutorialStage, welcomeBonusClaimed]);
 
   if (locked) {
     return (
@@ -124,6 +127,9 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
                   awardIntroPointsIfNeeded();
                 }}
               >
+                <span className="garden-debris-arrow" aria-hidden>
+                  ⬇︎
+                </span>
                 {d.kind === 'rock' && '🪨'}
                 {d.kind === 'tree' && '🌳'}
                 {d.kind === 'rubble' && '🧱'}
@@ -132,7 +138,8 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
       </div>
 
       {isClearingTutorial && !hideTutorialCard && (
-        <div className="garden-tutorial-card">
+        <div className="garden-tutorial-overlay">
+          <div className="garden-tutorial-card">
           <button
             type="button"
             className="garden-tutorial-close"
@@ -146,6 +153,7 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
             Tap the rocks, tree, and rubble to clear space for your future garden. You&apos;ll get
             100 starter points once everything is cleaned up.
           </p>
+          </div>
         </div>
       )}
 

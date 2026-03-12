@@ -65,36 +65,32 @@
   display: inline-flex;
 }
 
-.main-icon-arrow {
-  position: absolute;
-  right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-flex;
+.main-underbar-hint {
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
-  gap: 0.25rem;
-  pointer-events: none;
+  gap: 0.4rem;
+  padding: 0 0.95rem 0.4rem;
+  margin-top: -0.1rem;
 }
 
-.main-icon-arrow::before {
-  content: '➜';
-  font-size: 1rem;
+.main-underbar-hint-arrow {
   color: var(--yellow);
-  animation: main-arrow-bounce 1.1s ease-in-out infinite;
+  animation: main-underbar-bounce 1.1s ease-in-out infinite;
+  display: inline-block;
 }
 
-.main-icon-arrow-label {
-  font-size: 0.7rem;
+.main-underbar-hint-text {
+  font-size: 0.75rem;
   color: var(--yellow);
-  white-space: nowrap;
 }
 
-@keyframes main-arrow-bounce {
+@keyframes main-underbar-bounce {
   0%, 100% {
-    transform: translateX(0);
+    transform: translateY(0);
   }
   50% {
-    transform: translateX(-4px);
+    transform: translateY(-4px);
   }
 }
 

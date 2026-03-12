@@ -53,11 +53,6 @@ export function MainView() {
               >
                 🥚
               </button>
-              {showSanctuaryArrow && (
-                <div className="main-icon-arrow" aria-hidden>
-                  <span className="main-icon-arrow-label">Tap here to visit the egg sanctuary</span>
-                </div>
-              )}
             </div>
             <button
               className={`main-icon-btn ${panel === 'store' ? 'active' : ''}`}
@@ -76,6 +71,13 @@ export function MainView() {
           </div>
         </div>
       </header>
+
+      {showSanctuaryArrow && (
+        <div className="main-underbar-hint" aria-hidden>
+          <span className="main-underbar-hint-arrow">⬆︎</span>
+          <span className="main-underbar-hint-text">Tap 🥚 to visit the egg sanctuary</span>
+        </div>
+      )}
 
       <section className="main-garden-area">
         <Garden locked={!gardenUnlocked && tutorialStage === 'done'} onUnlockHint={checkGardenAccess} />
