@@ -15,18 +15,11 @@
   pointer-events: none;
 }
 
-/* Richer pastel gradient — cutesy anime vibe */
+/* Single pink that fades into blue */
 .intro-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    145deg,
-    #ffbfd5 0%,
-    #ff9ec4 25%,
-    #c8a5ff 55%,
-    #8fb5ff 80%,
-    #6a8bff 100%
-  );
+  background: #ff9ec4;
 }
 
 .intro-content {
