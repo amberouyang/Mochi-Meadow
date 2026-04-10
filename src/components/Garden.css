@@ -105,7 +105,6 @@
 .garden-unlocked .garden-shelter {
   position: relative;
   z-index: 1;
-  min-height: 200px;
 }
 
 /* Clickable debris for the initial clearing tutorial */
@@ -201,50 +200,6 @@
   font-size: 0.8rem;
   color: var(--muted);
 }
-
-/* Cutesy pastel shelter house with little window */
-.shelter-house {
-  position: absolute;
-  right: 1.5rem;
-  bottom: 2rem;
-  width: 88px;
-  height: 72px;
-  background: linear-gradient(180deg, #ffd4e5 0%, #ffb8d4 50%, #ff9ec4 100%),
-    radial-gradient(circle at 70% 38%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 45%, transparent 70%);
-  background-size: 100% 100%, 22px 20px;
-  background-position: 0 0, 14px 16px;
-  background-repeat: no-repeat, no-repeat;
-  border-radius: 12px 12px 8px 8px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12), inset 0 2px 0 rgba(255, 255, 255, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.6);
-}
-
-.shelter-house::before {
-  content: '';
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 44px solid transparent;
-  border-right: 44px solid transparent;
-  border-bottom: 24px solid #e8a0b8;
-}
-
-.shelter-house::after {
-  content: '';
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 32px;
-  background: #c97b8f;
-  border-radius: 4px 4px 0 0;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3);
-}
-
 
 /* Cute pet cards with blush */
 .garden-pets {

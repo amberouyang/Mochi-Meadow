@@ -140,7 +140,6 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
       )}
 
       <div className="garden-shelter">
-        <div className="shelter-house" />
         <div className="garden-pets">
           {pets.map((p) => (
             <div key={p.id} className={`pet pet-${p.mood}`} title={p.name}>
