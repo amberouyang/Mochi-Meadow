@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useStore } from '../store/useStore';
+import { MeadowPanBackground } from './MeadowPanBackground';
 import './Garden.css';
 
 type GardenProps = { locked: boolean; onUnlockHint: () => void };
@@ -33,18 +34,7 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
     return (
       <div className="garden garden-locked">
         <div className="garden-meadow-bg" aria-hidden>
-          <div className="garden-sun">
-            <span className="garden-sun-face">◠‿◠</span>
-          </div>
-          <div className="garden-cloud garden-cloud-1" />
-          <div className="garden-cloud garden-cloud-2" />
-          <div className="garden-cloud garden-cloud-3" />
-          <div className="garden-grass" />
-          <div className="garden-flower garden-flower-1">🌸</div>
-          <div className="garden-flower garden-flower-2">🌷</div>
-          <div className="garden-flower garden-flower-3">🌼</div>
-          <div className="garden-flower garden-flower-4">🦋</div>
-          <div className="garden-flower garden-flower-5">✨</div>
+          <MeadowPanBackground />
         </div>
         <div className="garden-lock-message">
           <span className="garden-lock-emojis">🌿 🌸 ✨ 🌿</span>
@@ -104,15 +94,7 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
   return (
     <div className="garden garden-unlocked">
       <div className="garden-meadow-bg" aria-hidden>
-        <div className="garden-sun garden-sun-unlocked">
-          <span className="garden-sun-face">◠‿◠</span>
-        </div>
-        <div className="garden-cloud garden-cloud-1" />
-        <div className="garden-cloud garden-cloud-2" />
-        <div className="garden-grass" />
-        <div className="garden-flower garden-flower-1">🌸</div>
-        <div className="garden-flower garden-flower-2">🌷</div>
-        <div className="garden-flower garden-flower-3">🌼</div>
+        <MeadowPanBackground />
 
         {isClearingTutorial &&
           debris

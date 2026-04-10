@@ -5,14 +5,14 @@
   image-rendering: pixelated;
 }
 
-/* Soft meadow background without visible grid */
+/* Soft meadow background — pixel art layer pans with mouse (see MeadowPanBackground) */
 .garden-locked {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(180deg, #6ba4ec 0%, #6ba4ec 45%, #4b7b3a 45%, #4b7b3a 100%);
+  background: var(--bg);
 }
 
 .garden-meadow-bg {
@@ -21,116 +21,29 @@
   pointer-events: none;
 }
 
-/* Kawaii sun with face */
-.garden-sun {
+.meadow-pan {
   position: absolute;
-  top: 12%;
-  right: 18%;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fffef5, #ffec8b);
-  box-shadow: 0 0 50px rgba(255, 236, 139, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: garden-sun-glow 4s ease-in-out infinite;
+  inset: 0;
+  overflow: hidden;
 }
 
-.garden-sun-unlocked {
-  top: 10%;
-  right: 12%;
-  width: 56px;
-  height: 56px;
-}
-
-.garden-sun-face {
-  font-size: 1.5rem;
-  line-height: 1;
-  color: #c9a227;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-.garden-sun-unlocked .garden-sun-face {
-  font-size: 1.1rem;
-}
-
-@keyframes garden-sun-glow {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.95; }
-}
-
-.garden-cloud {
+.meadow-pan-track {
   position: absolute;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  animation: garden-cloud-float 8s ease-in-out infinite;
-}
-
-.garden-cloud-1 {
-  width: 80px;
-  height: 36px;
-  top: 18%;
-  left: 15%;
-  box-shadow: 32px 0 0 -8px rgba(255, 255, 255, 0.75);
-  animation-delay: 0s;
-}
-
-.garden-cloud-2 {
-  width: 56px;
-  height: 28px;
-  top: 28%;
-  right: 22%;
-  box-shadow: 24px 0 0 -6px rgba(255, 255, 255, 0.7);
-  animation-delay: -2s;
-}
-
-.garden-cloud-3 {
-  width: 48px;
-  height: 24px;
-  top: 22%;
-  left: 45%;
-  box-shadow: 20px 0 0 -5px rgba(255, 255, 255, 0.7);
-  animation-delay: -4s;
-}
-
-@keyframes garden-cloud-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-.garden-grass {
-  position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  right: 0;
-  height: 42%;
-  background: linear-gradient(180deg, transparent 0%, rgba(126, 184, 122, 0.35) 25%, rgba(90, 154, 87, 0.55) 100%);
+  height: 100%;
+  will-change: transform;
 }
 
-/* Scattered cute flowers & sparkles */
-.garden-flower {
-  position: absolute;
-  font-size: 1.5rem;
-  opacity: 0.9;
-  animation: garden-flower-bob 3s ease-in-out infinite;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-.garden-flower-1 { bottom: 22%; left: 10%; animation-delay: 0s; }
-.garden-flower-2 { bottom: 28%; right: 15%; animation-delay: -0.5s; font-size: 1.25rem; }
-.garden-flower-3 { bottom: 18%; left: 25%; animation-delay: -1s; font-size: 1.1rem; }
-.garden-flower-4 { bottom: 35%; right: 8%; animation-delay: -1.5s; font-size: 1.3rem; }
-.garden-flower-5 { top: 25%; left: 20%; font-size: 1rem; animation: garden-sparkle 2s ease-in-out infinite; }
-
-@keyframes garden-flower-bob {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-4px) scale(1.05); }
-}
-
-@keyframes garden-sparkle {
-  0%, 100% { opacity: 0.7; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
+.meadow-pan-img {
+  display: block;
+  height: 100%;
+  width: auto;
+  min-width: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+  user-select: none;
+  pointer-events: none;
 }
 
 /* Soft pastel lock message card */
@@ -186,7 +99,7 @@
 .garden-unlocked {
   position: relative;
   padding: 1.5rem;
-  background: linear-gradient(180deg, #6ba4ec 0%, #6ba4ec 40%, #4b7b3a 40%, #4b7b3a 100%);
+  background: var(--bg);
 }
 
 .garden-unlocked .garden-shelter {
