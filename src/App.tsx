@@ -7,7 +7,8 @@ import { useStore } from './store/useStore';
 import './App.css';
 
 function getRoute() {
-  const hash = window.location.hash.slice(1) || 'main';
+  const raw = window.location.hash.slice(1) || 'main';
+  const hash = raw.replace(/^\//, '');
   if (hash === 'sidebar') return 'sidebar';
   if (hash === 'overlay') return 'overlay';
   return 'main';
