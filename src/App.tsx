@@ -50,7 +50,7 @@ export default function App() {
   return (
     <>
       <MainView />
-      {showIntro && <IntroScreen onComplete={onIntroComplete} />}
+      {showIntro && <IntroScreen onPlay={onIntroComplete} />}
       {showNamePopup && (
         <div className="bonus-popup-overlay">
           <div className="bonus-popup">

@@ -8,6 +8,8 @@
 /* Soft meadow background — pixel art layer pans with mouse (see MeadowPanBackground) */
 .garden-locked {
   position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +42,9 @@
   height: 100%;
   width: auto;
   min-width: 100%;
+  min-height: 100%;
   object-fit: cover;
+  object-position: center center;
   image-rendering: pixelated;
   user-select: none;
   pointer-events: none;
@@ -98,8 +102,11 @@
 
 .garden-unlocked {
   position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 1.5rem;
-  background: var(--bg);
+  /* Only shows if the image fails to paint; keeps edge less harsh than app chrome */
+  background: #2a4530;
 }
 
 .garden-unlocked .garden-shelter {
