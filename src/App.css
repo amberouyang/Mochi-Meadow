@@ -51,3 +51,39 @@
 .name-popup-input::placeholder {
   color: rgba(192, 202, 245, 0.65);
 }
+
+.meadow-intro-card {
+  max-width: 420px;
+  text-align: left;
+}
+
+.meadow-intro-title {
+  margin: 0 0 0.85rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+
+.meadow-intro-list {
+  margin: 0 0 1.1rem;
+  padding-left: 1.15rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--text);
+  opacity: 0.95;
+}
+
+.meadow-intro-list li {
+  margin-bottom: 0.55rem;
+}
+
+.meadow-intro-list li:last-child {
+  margin-bottom: 0;
+}
+
+.meadow-intro-btn {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+}

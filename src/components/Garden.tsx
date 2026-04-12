@@ -161,7 +161,6 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
           ))}
         </div>
       </div>
-      <p className="garden-mist-hint">~ Lock the garden and spray mist to heal pets (coming soon) ~</p>
     </div>
   );
 }
