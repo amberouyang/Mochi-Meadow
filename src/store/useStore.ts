@@ -137,9 +137,12 @@ export const useStore = create<Store>((set, get) => ({
   tutorialStage: 'introMeadow',
   introStartedAt: Date.now(),
   debris: [
-    { id: 'd1', kind: 'rock', cleared: false },
-    { id: 'd2', kind: 'tree', cleared: false },
-    { id: 'd3', kind: 'rubble', cleared: false },
+    // Five separate rocks (one per sprite) so they clear one-by-one.
+    { id: 'd1', kind: 'rock', cleared: false, assetIndex: 0, leftPct: 18, bottomPct: 20 },
+    { id: 'd2', kind: 'rock', cleared: false, assetIndex: 1, leftPct: 34, bottomPct: 16 },
+    { id: 'd3', kind: 'rock', cleared: false, assetIndex: 2, leftPct: 50, bottomPct: 22 },
+    { id: 'd4', kind: 'rock', cleared: false, assetIndex: 3, leftPct: 66, bottomPct: 15 },
+    { id: 'd5', kind: 'rock', cleared: false, assetIndex: 4, leftPct: 70, bottomPct: 28 },
   ],
   clearDebris: (id) =>
     set((s) => ({

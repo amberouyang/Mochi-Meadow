@@ -20,7 +20,7 @@
 .garden-meadow-bg {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .meadow-pan {
@@ -35,9 +35,11 @@
   left: 0;
   height: 100%;
   will-change: transform;
+  /* Allow absolutely-positioned rocks/debris to anchor to the moving meadow layer */
+  pointer-events: auto;
 }
 
-/* Decorative rocks on the meadow panel (% of .garden-meadow-bg); sibling of .meadow-pan so they stay fixed while the art pans. */
+/* Decorative rocks positioned within the meadow pan track so they move with the grass */
 .meadow-scatter-layer {
   position: absolute;
   inset: 0;
@@ -194,24 +196,7 @@
   }
 }
 
-.garden-debris-rock {
-  bottom: 18%;
-  left: 18%;
-}
-
-.garden-debris-tree {
-  bottom: 22%;
-  right: 20%;
-}
-
-.garden-debris-rubble {
-  bottom: 14%;
-  left: 45%;
-}
-
-.garden-debris-rubble .garden-debris-arrow {
-  top: -32px;
-}
+/* Debris positions are now set inline (leftPct/bottomPct) so each rock can be placed uniquely. */
 
 .garden-tutorial-overlay {
   position: absolute;
@@ -236,7 +221,8 @@
   min-height: 130px;
   pointer-events: auto;
   /* Less negative Y = whole panel sits lower on the meadow */
-  transform: translate(15px, -175px);
+  /* More negative Y = message sits higher */
+  transform: translate(15px, -235px);
   background: #dff4d8;
   border: 4px solid #2f5f3d;
   border-radius: 10px;

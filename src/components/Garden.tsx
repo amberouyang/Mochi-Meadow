@@ -1,63 +1,13 @@
 import { useEffect, useState } from 'react';
-import {
-  MEADOW_CENTER_ROCK_SIZE_PX,
-  MEADOW_CENTER_ROCKS_LAYOUT,
-  ROCK_ASSETS,
-  RUBBLE_PILE_LAYERS,
-} from '../meadowRocks';
+import { ROCK_ASSETS } from '../meadowRocks';
 import { useStore } from '../store/useStore';
 import { MeadowPanBackground } from './MeadowPanBackground';
 import './Garden.css';
 
-/** Fixed to the meadow viewport — does not pan with the background image. */
-function MeadowRockScatter() {
-  return (
-    <div className="meadow-scatter-layer">
-      {MEADOW_CENTER_ROCKS_LAYOUT.map((p, i) => (
-        <img
-          key={i}
-          src={ROCK_ASSETS[p.assetIndex]}
-          alt=""
-          className="meadow-scatter-rock"
-          draggable={false}
-          style={{
-            left: `${p.leftPct}%`,
-            bottom: `${p.bottomPct}%`,
-            width: MEADOW_CENTER_ROCK_SIZE_PX,
-            transform: `translateX(-50%) rotate(${p.rotDeg}deg)`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-function debrisRockSrc(kind: 'rock' | 'tree') {
-  if (kind === 'rock') return ROCK_ASSETS[0];
+function debrisRockSrc(kind: 'rock' | 'tree' | 'rubble', assetIndex?: number) {
+  // rubble is no longer used for tutorial debris, but keep it safe.
+  if (kind === 'rock' || kind === 'rubble') return ROCK_ASSETS[assetIndex ?? 0];
   return ROCK_ASSETS[3];
-}
-
-function RubblePileImages() {
-  return (
-    <div className="garden-debris-pile">
-      {RUBBLE_PILE_LAYERS.map((layer, i) => (
-        <img
-          key={i}
-          src={ROCK_ASSETS[layer.assetIndex]}
-          alt=""
-          className="garden-debris-pile-img"
-          draggable={false}
-          style={{
-            left: `${layer.leftPct}%`,
-            bottom: `${layer.bottomPct}%`,
-            width: `${layer.widthPct}%`,
-            transform: `rotate(${layer.rotDeg}deg)`,
-            zIndex: layer.z,
-          }}
-        />
-      ))}
-    </div>
-  );
 }
 
 type GardenProps = { locked: boolean; onUnlockHint: () => void };
@@ -92,7 +42,6 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
       <div className="garden garden-locked">
         <div className="garden-meadow-bg" aria-hidden>
           <MeadowPanBackground />
-          <MeadowRockScatter />
         </div>
         <div className="garden-lock-message">
           <span className="garden-lock-emojis">🌿 🌸 ✨ 🌿</span>
@@ -152,37 +101,36 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
   return (
     <div className="garden garden-unlocked">
       <div className="garden-meadow-bg" aria-hidden>
-        <MeadowPanBackground />
-        <MeadowRockScatter />
-
-        {isClearingTutorial &&
-          debris
-            .filter((d) => !d.cleared)
-            .map((d) => (
-              <button
-                key={d.id}
-                type="button"
-                className={`garden-debris garden-debris-${d.kind}`}
-                onClick={() => {
-                  clearDebris(d.id);
-                  awardIntroPointsIfNeeded();
-                }}
-              >
-                <span className="garden-debris-arrow" aria-hidden>
-                  ⬇︎
-                </span>
-                {d.kind === 'rubble' ? (
-                  <RubblePileImages />
-                ) : (
+        <MeadowPanBackground>
+          {isClearingTutorial &&
+            debris
+              .filter((d) => !d.cleared)
+              .map((d) => (
+                <button
+                  key={d.id}
+                  type="button"
+                  className={`garden-debris garden-debris-${d.kind}`}
+                  style={{
+                    left: `${d.leftPct ?? 0}%`,
+                    bottom: `${d.bottomPct ?? 0}%`,
+                  }}
+                  onClick={() => {
+                    clearDebris(d.id);
+                    awardIntroPointsIfNeeded();
+                  }}
+                >
+                  <span className="garden-debris-arrow" aria-hidden>
+                    ⬇︎
+                  </span>
                   <img
-                    src={debrisRockSrc(d.kind)}
+                    src={debrisRockSrc(d.kind, d.assetIndex)}
                     alt=""
                     className="garden-debris-img"
                     draggable={false}
                   />
-                )}
-              </button>
-            ))}
+                </button>
+              ))}
+        </MeadowPanBackground>
       </div>
 
       {isClearingTutorial && !hideTutorialCard && (

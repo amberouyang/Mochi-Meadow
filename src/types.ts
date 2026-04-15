@@ -28,6 +28,11 @@ export type GardenDebris = {
   id: string;
   kind: 'rock' | 'tree' | 'rubble';
   cleared: boolean;
+  /** Placement in the meadow overlay, as % of the container. */
+  leftPct?: number;
+  bottomPct?: number;
+  /** For rocks: which sprite to use (0..4). */
+  assetIndex?: number;
 };
 
 export type StorePurchase = {

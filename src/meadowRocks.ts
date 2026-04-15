@@ -19,7 +19,7 @@ export const RUBBLE_PILE_LAYERS = [
 ] as const;
 
 /** Pixel width for every centered decorative rock (same size). */
-export const MEADOW_CENTER_ROCK_SIZE_PX = 88;
+export const MEADOW_CENTER_ROCK_SIZE_PX = 110;
 
 /**
  * Five rocks fixed to the meadow panel (not the panning art): one of each sprite,
