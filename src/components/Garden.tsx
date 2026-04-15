@@ -1,7 +1,64 @@
 import { useEffect, useState } from 'react';
+import {
+  MEADOW_CENTER_ROCK_SIZE_PX,
+  MEADOW_CENTER_ROCKS_LAYOUT,
+  ROCK_ASSETS,
+  RUBBLE_PILE_LAYERS,
+} from '../meadowRocks';
 import { useStore } from '../store/useStore';
 import { MeadowPanBackground } from './MeadowPanBackground';
 import './Garden.css';
+
+/** Fixed to the meadow viewport — does not pan with the background image. */
+function MeadowRockScatter() {
+  return (
+    <div className="meadow-scatter-layer">
+      {MEADOW_CENTER_ROCKS_LAYOUT.map((p, i) => (
+        <img
+          key={i}
+          src={ROCK_ASSETS[p.assetIndex]}
+          alt=""
+          className="meadow-scatter-rock"
+          draggable={false}
+          style={{
+            left: `${p.leftPct}%`,
+            bottom: `${p.bottomPct}%`,
+            width: MEADOW_CENTER_ROCK_SIZE_PX,
+            transform: `translateX(-50%) rotate(${p.rotDeg}deg)`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function debrisRockSrc(kind: 'rock' | 'tree') {
+  if (kind === 'rock') return ROCK_ASSETS[0];
+  return ROCK_ASSETS[3];
+}
+
+function RubblePileImages() {
+  return (
+    <div className="garden-debris-pile">
+      {RUBBLE_PILE_LAYERS.map((layer, i) => (
+        <img
+          key={i}
+          src={ROCK_ASSETS[layer.assetIndex]}
+          alt=""
+          className="garden-debris-pile-img"
+          draggable={false}
+          style={{
+            left: `${layer.leftPct}%`,
+            bottom: `${layer.bottomPct}%`,
+            width: `${layer.widthPct}%`,
+            transform: `rotate(${layer.rotDeg}deg)`,
+            zIndex: layer.z,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 type GardenProps = { locked: boolean; onUnlockHint: () => void };
 
@@ -35,6 +92,7 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
       <div className="garden garden-locked">
         <div className="garden-meadow-bg" aria-hidden>
           <MeadowPanBackground />
+          <MeadowRockScatter />
         </div>
         <div className="garden-lock-message">
           <span className="garden-lock-emojis">🌿 🌸 ✨ 🌿</span>
@@ -95,6 +153,7 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
     <div className="garden garden-unlocked">
       <div className="garden-meadow-bg" aria-hidden>
         <MeadowPanBackground />
+        <MeadowRockScatter />
 
         {isClearingTutorial &&
           debris
@@ -112,9 +171,16 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
                 <span className="garden-debris-arrow" aria-hidden>
                   ⬇︎
                 </span>
-                {d.kind === 'rock' && '🪨'}
-                {d.kind === 'tree' && '🌳'}
-                {d.kind === 'rubble' && '🧱'}
+                {d.kind === 'rubble' ? (
+                  <RubblePileImages />
+                ) : (
+                  <img
+                    src={debrisRockSrc(d.kind)}
+                    alt=""
+                    className="garden-debris-img"
+                    draggable={false}
+                  />
+                )}
               </button>
             ))}
       </div>
@@ -122,19 +188,20 @@ export function Garden({ locked, onUnlockHint }: GardenProps) {
       {isClearingTutorial && !hideTutorialCard && (
         <div className="garden-tutorial-overlay">
           <div className="garden-tutorial-card">
-          <button
-            type="button"
-            className="garden-tutorial-close"
-            onClick={() => setHideTutorialCard(true)}
-            aria-label="Close tutorial"
-          >
-            ×
-          </button>
-          <p className="garden-tutorial-title">Your meadow is a little messy...</p>
-          <p className="garden-tutorial-text">
-            Tap the rocks, tree, and rubble to clear space for your future garden. You&apos;ll get
-            100 starter points once everything is cleaned up.
-          </p>
+            <div className="garden-tutorial-card-chrome">
+              <button
+                type="button"
+                className="garden-tutorial-close"
+                onClick={() => setHideTutorialCard(true)}
+                aria-label="Close tutorial"
+              >
+                ×
+              </button>
+              <p className="garden-tutorial-message">
+                <strong>Oh no!</strong>{' '}
+                Some rumbly rubble is blocking the way! Help your Mochi clear the path to earn 100 starter points.
+              </p>
+            </div>
           </div>
         </div>
       )}

@@ -1,11 +1,17 @@
+import type { ReactNode } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import meadowUrl from '../assets/meadow-background.png';
+
+type MeadowPanBackgroundProps = {
+  /** Rendered inside the panning layer so decor moves with the meadow art. */
+  children?: ReactNode;
+};
 
 /**
  * Full-bleed meadow image that pans horizontally with the mouse, bounded so you can
  * look from one side of the art to the other (not infinite scroll).
  */
-export function MeadowPanBackground() {
+export function MeadowPanBackground({ children }: MeadowPanBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const maxPanRef = useRef(0);
@@ -60,6 +66,7 @@ export function MeadowPanBackground() {
           onLoad={recalcMaxPan}
           draggable={false}
         />
+        {children}
       </div>
     </div>
   );
