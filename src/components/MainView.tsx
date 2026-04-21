@@ -28,61 +28,60 @@ export function MainView() {
 
   return (
     <div className="main-view">
-      <header className="main-topbar">
-        <div className="main-topbar-left">
-          <h1 className="main-title">Mochi Meadow</h1>
-        </div>
-        <div className="main-topbar-right">
-          <PointsDisplay />
-          <div className="main-icon-menu" aria-label="Main menu">
-            <button
-              className={`main-icon-btn ${panel === 'todo' ? 'active' : ''}`}
-              onClick={() => openPanel('todo')}
-              aria-label="Open to-do list"
-            >
-              📝
-            </button>
-            <button
-              className={`main-icon-btn ${panel === 'study' ? 'active' : ''}`}
-              onClick={() => openPanel('study')}
-              aria-label="Open study timer"
-            >
-              ⏱
-            </button>
-            <div className="main-icon-wrapper">
+      <section className="main-garden-area">
+        <div className="main-meadow-hud" role="toolbar" aria-label="Mochi Meadow tools">
+          <div className="main-meadow-hud-left">
+            <h1 className="main-title">Mochi Meadow</h1>
+          </div>
+          <div className="main-meadow-hud-right">
+            <PointsDisplay />
+            <div className="main-icon-menu" aria-label="Main menu">
               <button
-                className={`main-icon-btn ${panel === 'sanctuary' ? 'active' : ''}`}
-                onClick={() => openPanel('sanctuary')}
-                aria-label="Open pet egg sanctuary"
+                className={`main-icon-btn ${panel === 'todo' ? 'active' : ''}`}
+                onClick={() => openPanel('todo')}
+                aria-label="Open to-do list"
               >
-                🥚
+                📝
               </button>
-              {showSanctuaryArrow && (
-                <div className="egg-hint" aria-hidden>
-                  <span className="egg-hint-arrow">⬆︎</span>
-                  <span className="egg-hint-text">Tap to visit the egg sanctuary</span>
-                </div>
-              )}
+              <button
+                className={`main-icon-btn ${panel === 'study' ? 'active' : ''}`}
+                onClick={() => openPanel('study')}
+                aria-label="Open study timer"
+              >
+                ⏱
+              </button>
+              <div className="main-icon-wrapper">
+                <button
+                  className={`main-icon-btn ${panel === 'sanctuary' ? 'active' : ''}`}
+                  onClick={() => openPanel('sanctuary')}
+                  aria-label="Open pet egg sanctuary"
+                >
+                  🥚
+                </button>
+                {showSanctuaryArrow && (
+                  <div className="egg-hint" aria-hidden>
+                    <span className="egg-hint-arrow">⬆︎</span>
+                    <span className="egg-hint-text">Tap to visit the egg sanctuary</span>
+                  </div>
+                )}
+              </div>
+              <button
+                className={`main-icon-btn ${panel === 'store' ? 'active' : ''}`}
+                onClick={() => openPanel('store')}
+                aria-label="Open store"
+              >
+                🛒
+              </button>
+              <button
+                className="main-icon-btn"
+                onClick={() => openPanel('none')}
+                aria-label="Settings (coming soon)"
+              >
+                ⚙️
+              </button>
             </div>
-            <button
-              className={`main-icon-btn ${panel === 'store' ? 'active' : ''}`}
-              onClick={() => openPanel('store')}
-              aria-label="Open store"
-            >
-              🛒
-            </button>
-            <button
-              className="main-icon-btn"
-              onClick={() => openPanel('none')}
-              aria-label="Settings (coming soon)"
-            >
-              ⚙️
-            </button>
           </div>
         </div>
-      </header>
-
-      <section className="main-garden-area">
         <Garden locked={!gardenUnlocked && tutorialStage === 'done'} onUnlockHint={checkGardenAccess} />
       </section>
 

@@ -9,37 +9,48 @@
   background: var(--bg);
 }
 
-/* Top bar with controls */
-.main-topbar {
+/* Floating toolbar on the meadow (not a separate chrome strip) */
+.main-meadow-hud {
+  position: absolute;
+  top: 0.65rem;
+  left: 0.65rem;
+  right: 0.65rem;
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.6rem 0.85rem;
-  gap: 0.75rem;
-  background: #4fa1ca;
-  border-radius: 16px;
-  margin: 0.5rem 0.75rem 0.25rem;
-  position: relative;
-  z-index: 50;
+  padding: 0.45rem 0.75rem;
+  gap: 0.65rem;
+  background: rgba(255, 252, 248, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 999px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(79, 161, 202, 0.35);
+  pointer-events: auto;
 }
 
-.main-topbar-left {
+.main-meadow-hud-left {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .main-title {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: var(--bg);
+  color: #1a3d52;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.main-topbar-right {
+.main-meadow-hud-right {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
+  flex-shrink: 0;
 }
 
 .main-icon-menu {
@@ -108,8 +119,9 @@
   }
 }
 
-/* Garden fills the main area — first thing you see */
+/* Garden fills the main area; HUD is absolutely positioned on top */
 .main-garden-area {
+  position: relative;
   flex: 1;
   min-width: 0;
   min-height: 0;
@@ -134,7 +146,7 @@
 }
 
 .points-label {
-  color: var(--bg);
+  color: #2d4450;
 }
 
 .points-value {
@@ -145,15 +157,15 @@
 /* Floating panel for menu functions */
 .main-panel {
   position: fixed;
-  top: 3.5rem;
+  top: 4.75rem;
   right: 1rem;
   width: 280px;
-  max-height: calc(100vh - 5rem);
+  max-height: calc(100vh - 5.5rem);
   background: rgba(36, 40, 59, 0.97);
   backdrop-filter: blur(12px);
   border-radius: 16px;
   padding: 1rem;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
   overflow: auto;
-  z-index: 20;
+  z-index: 60;
 }
