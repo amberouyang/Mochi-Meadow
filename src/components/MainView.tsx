@@ -3,7 +3,6 @@ import { useStore } from '../store/useStore';
 import { TodoList } from './TodoList';
 import { StudyBar } from './StudyBar';
 import { Garden } from './Garden';
-import { PointsDisplay } from './PointsDisplay';
 import { EggSanctuary } from './EggSanctuary';
 import { StorePanel } from './StorePanel';
 import './MainView.css';
@@ -29,57 +28,56 @@ export function MainView() {
   return (
     <div className="main-view">
       <section className="main-garden-area">
-        <div className="main-meadow-hud" role="toolbar" aria-label="Mochi Meadow tools">
-          <div className="main-meadow-hud-left">
-            <h1 className="main-title">Mochi Meadow</h1>
-          </div>
-          <div className="main-meadow-hud-right">
-            <PointsDisplay />
-            <div className="main-icon-menu" aria-label="Main menu">
+        <div className="main-sky-hud" role="toolbar" aria-label="Mochi Meadow tools">
+          <div className="main-sky-icons">
+            <button
+              type="button"
+              className={`main-sky-btn main-sky-btn--todo ${panel === 'todo' ? 'is-active' : ''}`}
+              onClick={() => openPanel('todo')}
+              aria-label="Open to-do list"
+            >
+              📝
+            </button>
+            <button
+              type="button"
+              className={`main-sky-btn main-sky-btn--study ${panel === 'study' ? 'is-active' : ''}`}
+              onClick={() => openPanel('study')}
+              aria-label="Open study timer"
+            >
+              ⏱
+            </button>
+            <div className="main-sky-btn-cluster">
               <button
-                className={`main-icon-btn ${panel === 'todo' ? 'active' : ''}`}
-                onClick={() => openPanel('todo')}
-                aria-label="Open to-do list"
+                type="button"
+                className={`main-sky-btn main-sky-btn--egg ${panel === 'sanctuary' ? 'is-active' : ''}`}
+                onClick={() => openPanel('sanctuary')}
+                aria-label="Open pet egg sanctuary"
               >
-                📝
+                🥚
               </button>
-              <button
-                className={`main-icon-btn ${panel === 'study' ? 'active' : ''}`}
-                onClick={() => openPanel('study')}
-                aria-label="Open study timer"
-              >
-                ⏱
-              </button>
-              <div className="main-icon-wrapper">
-                <button
-                  className={`main-icon-btn ${panel === 'sanctuary' ? 'active' : ''}`}
-                  onClick={() => openPanel('sanctuary')}
-                  aria-label="Open pet egg sanctuary"
-                >
-                  🥚
-                </button>
-                {showSanctuaryArrow && (
-                  <div className="egg-hint" aria-hidden>
-                    <span className="egg-hint-arrow">⬆︎</span>
-                    <span className="egg-hint-text">Tap to visit the egg sanctuary</span>
-                  </div>
-                )}
-              </div>
-              <button
-                className={`main-icon-btn ${panel === 'store' ? 'active' : ''}`}
-                onClick={() => openPanel('store')}
-                aria-label="Open store"
-              >
-                🛒
-              </button>
-              <button
-                className="main-icon-btn"
-                onClick={() => openPanel('none')}
-                aria-label="Settings (coming soon)"
-              >
-                ⚙️
-              </button>
+              {showSanctuaryArrow && (
+                <div className="egg-hint" aria-hidden>
+                  <span className="egg-hint-arrow">⬆︎</span>
+                  <span className="egg-hint-text">Tap to visit the egg sanctuary</span>
+                </div>
+              )}
             </div>
+            <button
+              type="button"
+              className={`main-sky-btn main-sky-btn--store ${panel === 'store' ? 'is-active' : ''}`}
+              onClick={() => openPanel('store')}
+              aria-label="Open store"
+            >
+              🛒
+            </button>
+            <button
+              type="button"
+              className="main-sky-btn main-sky-btn--gear"
+              onClick={() => openPanel('none')}
+              aria-label="Settings (coming soon)"
+            >
+              ⚙️
+            </button>
           </div>
         </div>
         <Garden locked={!gardenUnlocked && tutorialStage === 'done'} onUnlockHint={checkGardenAccess} />

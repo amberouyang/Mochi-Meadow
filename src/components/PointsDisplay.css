@@ -1,0 +1,16 @@
+.points-display {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.points-label {
+  color: #2d4450;
+}
+
+.points-value {
+  font-weight: 700;
+  color: var(--yellow);
+}

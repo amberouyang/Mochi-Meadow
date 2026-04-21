@@ -9,77 +9,154 @@
   background: var(--bg);
 }
 
-/* Floating toolbar on the meadow (not a separate chrome strip) */
-.main-meadow-hud {
+/*
+ * Sky icons — individual chunky “game chip” circles that read as meadow / cozy / pixel-adjacent:
+ * soft gradients (grass, sky, nest, blossom, moss), thick borders, light top edge, soft cloud shadow.
+ */
+.main-sky-hud {
   position: absolute;
-  top: 0.65rem;
-  left: 0.65rem;
-  right: 0.65rem;
+  top: 0.5rem;
+  right: 0.5rem;
+  left: 0.5rem;
   z-index: 50;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.45rem 0.75rem;
-  gap: 0.65rem;
-  background: rgba(255, 252, 248, 0.78);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 999px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(79, 161, 202, 0.35);
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.main-sky-hud .main-sky-icons {
   pointer-events: auto;
 }
 
-.main-meadow-hud-left {
+.main-sky-icons {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 0;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  max-width: 100%;
 }
 
-.main-title {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #1a3d52;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* Gentle float — stagger with margins so :hover transform still lifts each chip */
+.main-sky-icons > *:nth-child(1) {
+  margin-top: 0;
 }
 
-.main-meadow-hud-right {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  flex-shrink: 0;
+.main-sky-icons > *:nth-child(2) {
+  margin-top: 0.35rem;
 }
 
-.main-icon-menu {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+.main-sky-icons > *:nth-child(3) {
+  margin-top: -0.15rem;
 }
 
-.main-icon-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  border: none;
-  background: var(--surface);
-  color: var(--text);
+.main-sky-icons > *:nth-child(4) {
+  margin-top: 0.3rem;
+}
+
+.main-sky-icons > *:nth-child(5) {
+  margin-top: 0.05rem;
+}
+
+.main-sky-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 3px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  image-rendering: pixelated;
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.12),
+    0 8px 14px rgba(35, 70, 45, 0.18),
+    inset 0 2px 0 rgba(255, 255, 255, 0.45);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
 }
 
-.main-icon-btn.active {
-  background: var(--accent);
-  color: var(--bg);
+.main-sky-btn:hover {
+  z-index: 2;
+  transform: translateY(-3px);
+  filter: brightness(1.03);
+  box-shadow:
+    0 4px 0 rgba(0, 0, 0, 0.1),
+    0 10px 18px rgba(35, 70, 45, 0.22),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
 }
 
-.main-icon-wrapper {
+.main-sky-btn:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.14),
+    0 4px 8px rgba(35, 70, 45, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.35);
+}
+
+.main-sky-btn:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 3px;
+}
+
+/* Leaf / checklist — meadow grass */
+.main-sky-btn--todo {
+  background: linear-gradient(165deg, #e8f8ec 0%, #a8dcb8 55%, #7bc49a 100%);
+  border-color: rgba(45, 95, 62, 0.55);
+  color: #1e3d2a;
+}
+
+/* Timer — open sky */
+.main-sky-btn--study {
+  background: linear-gradient(165deg, #eef8ff 0%, #b8daf5 55%, #7eb8e8 100%);
+  border-color: rgba(52, 100, 140, 0.55);
+  color: #1a3550;
+}
+
+/* Egg — warm nest */
+.main-sky-btn--egg {
+  background: linear-gradient(165deg, #fffaf0 0%, #fde9c9 50%, #e8c9a0 100%);
+  border-color: rgba(140, 110, 70, 0.5);
+  color: #4a3a28;
+}
+
+/* Store — mochi / blossom pink */
+.main-sky-btn--store {
+  background: linear-gradient(165deg, #fff5f8 0%, #ffd6e5 55%, #f5a8c4 100%);
+  border-color: rgba(160, 80, 100, 0.45);
+  color: #5c2a3a;
+}
+
+/* Gear — mossy stone */
+.main-sky-btn--gear {
+  background: linear-gradient(165deg, #eef5ee 0%, #c5dcc5 55%, #9cb89c 100%);
+  border-color: rgba(55, 85, 58, 0.5);
+  color: #2a3d2c;
+}
+
+.main-sky-btn.is-active {
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.14),
+    0 0 0 3px rgba(255, 255, 255, 0.85),
+    0 8px 16px rgba(35, 70, 45, 0.28),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+  filter: saturate(1.08);
+}
+
+.main-sky-btn-cluster {
   position: relative;
   display: inline-flex;
+}
+
+.main-sky-btn-cluster:hover {
+  z-index: 2;
 }
 
 .egg-hint {
@@ -137,30 +214,13 @@
   flex-direction: column;
 }
 
-.points-display {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.85rem;
-}
-
-.points-label {
-  color: #2d4450;
-}
-
-.points-value {
-  font-weight: 700;
-  color: var(--yellow);
-}
-
 /* Floating panel for menu functions */
 .main-panel {
   position: fixed;
-  top: 4.75rem;
+  top: 4rem;
   right: 1rem;
   width: 280px;
-  max-height: calc(100vh - 5.5rem);
+  max-height: calc(100vh - 5rem);
   background: rgba(36, 40, 59, 0.97);
   backdrop-filter: blur(12px);
   border-radius: 16px;
